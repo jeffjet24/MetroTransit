@@ -1,0 +1,18 @@
+{
+  "uuid": "289dc39c-2178-44a8-82af-4c84a81840c5",
+  "shortName": "MetroTransit",
+  "longName": "MetroTransit",
+  "companyName": "MakeAwesomeHappen",
+  "versionLabel": "1.0",
+  "sdkVersion": "3",
+  "targetPlatforms": ["aplite", "basalt"],
+  "watchapp": {
+    "watchface": false
+  },
+  "appKeys": {
+    "dummy": 0
+  },
+  "resources": {
+    "media": []
+  }
+}

@@ -65,7 +65,7 @@ void update() {
 	app_message_outbox_send();
   updateTimer=app_timer_register(300000, (AppTimerCallback) update, NULL);
 }
-
+// handles all of the time changes
 void tick_handler(struct tm *tick_time, TimeUnits units_changed)
 {
   if (clock_is_24h_style()) {
