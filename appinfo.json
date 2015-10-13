@@ -1,18 +1,25 @@
 {
-  "uuid": "289dc39c-2178-44a8-82af-4c84a81840c5",
-  "shortName": "MetroTransit",
-  "longName": "MetroTransit",
-  "companyName": "Ben Petermeier and Mack Chamberlain",
-  "versionLabel": "1.0",
-  "sdkVersion": "3",
-  "targetPlatforms": ["aplite", "basalt"],
-  "watchapp": {
-    "watchface": false
-  },
-  "appKeys": {
-    "dummy": 0
-  },
-  "resources": {
-    "media": []
-  }
+    "appKeys": {
+        "dummy": 0
+    },
+    "capabilities": [
+        ""
+    ],
+    "companyName": "Ben Petermeier and Mack Chamberlain",
+    "longName": "MetroTransit",
+    "projectType": "native",
+    "resources": {
+        "media": []
+    },
+    "sdkVersion": "3",
+    "shortName": "MetroTransit",
+    "targetPlatforms": [
+        "aplite",
+        "basalt"
+    ],
+    "uuid": "289dc39c-2178-44a8-82af-4c84a81840c5",
+    "versionLabel": "1.0",
+    "watchapp": {
+        "watchface": false
+    }
 }

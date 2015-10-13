@@ -2,14 +2,10 @@
 
 Window* window;
 TextLayer *time_layer;
-TextLayer *hash_layer;
-TextLayer *diff_layer;
-TextLayer *block_layer;
-TextLayer *doge_price_layer;
-TextLayer *usdk_price_layer;
-TextLayer *block_label_layer;
-TextLayer *diff_label_layer;
-TextLayer *hash_label_layer;
+TextLayer *nearestStationLayer;
+TextLayer *eastboundLayer;
+TextLayer *westboundLayer;
+
 
 AppTimer *updateTimer;
 static GBitmap *background_img;
@@ -18,11 +14,9 @@ static BitmapLayer* bg_layer;
 char buffer[] = "00:00";
 
 enum {
-  DOGE_NET_HASH_KEY,
-  DOGE_NET_DIFF_KEY,
-  DOGE_NET_BLOCK_KEY,
-  PRICE_DOGE_KEY,
-  PRICE_USDK_KEY,
+  NEAREST_STATION_STRING,
+  EASTBOUND,
+  WESTBOUND
 };
 
 static void out_sent_handler(DictionaryIterator *sent, void *context) {
@@ -34,26 +28,18 @@ void out_failed_handler(DictionaryIterator *failed, AppMessageResult reason, voi
 }
 
 static void in_received_handler(DictionaryIterator *iter, void *context) {
-	Tuple *net_hash_tuple = dict_find(iter, DOGE_NET_HASH_KEY);
-	Tuple *net_diff_tuple = dict_find(iter, DOGE_NET_DIFF_KEY);
-	Tuple *net_block_tuple = dict_find(iter, DOGE_NET_BLOCK_KEY);
-	Tuple *price_doge_tuple = dict_find(iter, PRICE_DOGE_KEY);
-	Tuple *price_usdk_tuple = dict_find(iter, PRICE_USDK_KEY);
+	Tuple *nearestStationTuple = dict_find(iter, NEAREST_STATION_STRING);
+	Tuple *eastboundTuple = dict_find(iter, EASTBOUND);
+	Tuple *westboundTuple = dict_find(iter, WESTBOUND);
 
-	if (net_hash_tuple) {
-    text_layer_set_text(hash_layer, net_hash_tuple->value->cstring);
+	if (nearestStationTuple) {
+    text_layer_set_text(nearestStationLayer, nearestStationTuple->value->cstring);
   }
 	if (net_diff_tuple) {
 		text_layer_set_text(diff_layer, net_diff_tuple->value->cstring);
 	}
 	if (net_block_tuple) {
 		text_layer_set_text(block_layer, net_block_tuple->value->cstring);
-	}
-	if (price_doge_tuple) {
-		text_layer_set_text(doge_price_layer, price_doge_tuple->value->cstring);
-	}
-	if (price_usdk_tuple) {
-		text_layer_set_text(usdk_price_layer, price_usdk_tuple->value->cstring);
 	}
 }
 
