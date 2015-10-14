@@ -5,7 +5,9 @@ TextLayer *time_layer;
 TextLayer *nearestStationLayer;
 TextLayer *eastboundLayer;
 TextLayer *westboundLayer;
-
+TextLayer *station_label_layer;
+TextLayer *eastbound_label_layer;
+TextLayer *westbound_label_layer;
 
 AppTimer *updateTimer;
 static GBitmap *background_img;
@@ -105,33 +107,33 @@ void window_load(Window *window)
 		layer_add_child(window_get_root_layer(window), (Layer*) westboundLayer);
 
 
-//     //layer for the block# label
-//     block_label_layer = text_layer_create(GRect(0, 70, 77, 24));
-//     text_layer_set_background_color(block_label_layer, GColorClear);
-//     text_layer_set_text_color(block_label_layer, GColorWhite);
-//     text_layer_set_text_alignment(block_label_layer, GTextAlignmentLeft);
-//     layer_add_child(window_get_root_layer(window), (Layer*) block_label_layer);
+    //layer for the station label
+    station_label_layer = text_layer_create(GRect(0, 70, 77, 24));
+    text_layer_set_background_color(station_label_layer, GColorClear);
+    text_layer_set_text_color(station_label_layer, GColorWhite);
+    text_layer_set_text_alignment(station_label_layer, GTextAlignmentLeft);
+    layer_add_child(window_get_root_layer(window), (Layer*) station_label_layer);
 
 
 
-//     diff_label_layer = text_layer_create(GRect(0, 88, 71, 24));
-//     text_layer_set_background_color(diff_label_layer, GColorClear);
-//     text_layer_set_text_color(diff_label_layer, GColorWhite);
-//     text_layer_set_text_alignment(diff_label_layer, GTextAlignmentLeft);
-//     layer_add_child(window_get_root_layer(window), (Layer*) diff_label_layer);
+    eastbound_label_layer = text_layer_create(GRect(0, 88, 71, 24));
+    text_layer_set_background_color(eastbound_label_layer, GColorClear);
+    text_layer_set_text_color(eastbound_label_layer, GColorWhite);
+    text_layer_set_text_alignment(eastbound_label_layer, GTextAlignmentLeft);
+    layer_add_child(window_get_root_layer(window), (Layer*) eastbound_label_layer);
 
 
 
-//     hash_label_layer = text_layer_create(GRect(0, 106, 67, 24));
-//     text_layer_set_background_color(hash_label_layer, GColorClear);
-//     text_layer_set_text_color(hash_label_layer, GColorWhite);
-//     text_layer_set_text_alignment(hash_label_layer, GTextAlignmentLeft);
-//     layer_add_child(window_get_root_layer(window), (Layer*) hash_label_layer);
+    westbound_label_layer = text_layer_create(GRect(0, 106, 67, 24));
+    text_layer_set_background_color(westbound_label_layer, GColorClear);
+    text_layer_set_text_color(westbound_label_layer, GColorWhite);
+    text_layer_set_text_alignment(westbound_label_layer, GTextAlignmentLeft);
+    layer_add_child(window_get_root_layer(window), (Layer*) westbound_label_layer);
 
-//     //setting the labels for the numbers.
-//     text_layer_set_text(block_label_layer, "Block:");
-//     text_layer_set_text(diff_label_layer,"Diff:");
-//     text_layer_set_text(hash_label_layer,"Hash:");
+    //setting the labels for the numbers.
+    text_layer_set_text(station_label_layer, "Station:");
+    text_layer_set_text(eastbound_label_layer,"East:");
+    text_layer_set_text(westbound_label_layer,"West:");
 
 
 

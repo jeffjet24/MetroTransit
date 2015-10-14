@@ -1,11 +1,9 @@
 {
-    "appKeys": {
-        "dummy": 0
-    },
+    "appKeys": {},
     "capabilities": [
-        ""
+        "location"
     ],
-    "companyName": "Ben Petermeier and Mack Chamberlain",
+    "companyName": "BenPete22, Jeffjet24",
     "longName": "MetroTransit",
     "projectType": "native",
     "resources": {
@@ -14,11 +12,11 @@
     "sdkVersion": "3",
     "shortName": "MetroTransit",
     "targetPlatforms": [
-        "aplite"
+        "basalt"
     ],
     "uuid": "2af550b3-b70d-4196-bffa-d1d82d38325e",
     "versionLabel": "1.0",
     "watchapp": {
-        "watchface": false
+        "watchface": true
     }
 }
