@@ -1,5 +1,10 @@
 {
-    "appKeys": {},
+    "appKeys": {
+        "eastbound": 2,
+        "nearestStation": 0,
+        "nearestStationCode": 1,
+        "westbound": 3
+    },
     "capabilities": [
         "location"
     ],

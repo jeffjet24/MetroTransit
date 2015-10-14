@@ -1,165 +1,22 @@
 //Works covered by CC BY-NC-SA 4.0
 var maxTriesForSendingAppMessage = 3;
 var timeoutForAppMessageRetry = 3000;
-var timeoutForAPIRequest = 12000;
-var lat, lon;
+var timeoutForAPIRequest = 3000;
 // Persist read a key's value. May be null!
-var lastLat = localStorage.getItem(1);
-var lastLon = localStorage.getItem(2);
+// getting the previous lat
+var lat = localStorage.getItem(1);
+//getting the previous lon
+var lon = localStorage.getItem(2);
+
 var id;
 var locationOptions = {
   enableHighAccuracy: true, 
-  maximumAge: 2000, 
+  maximumAge: 30000, 
   timeout: 5000
 };
 
-// all the greenline stations
-var target = {
-  lat: 44.98331,
-  lon: -93.277048,
-  code: "TF1O",
-  desc: "Target Field Station Platform 1"
-};
-var warehouse = {
-  lat: 44.980122,
-  lon: -93.273159,
-  code: "WARE",
-  desc: "Warehouse District Hennepin Ave Station"
-};
-var nicollet = {
-  lat: 44.978478,
-  lon: -93.269934,
-  code: "5SNI",
-  desc: "Nicollet Mall Station"
-};
-var government = {
-  lat: 44.976826,
-  lon: -93.265951,
-  code: "GOVT",
-  desc: "Government Plaza Station"
-};
-var downtown = {
-  lat: 44.975049,
-  lon: -93.259732,
-  code: "DTE",
-  desc: "Downtown East Station"
-};
-var westBank = {
-  lat: 44.972095,
-  lon: -93.245586,
-  code: "WEBK",
-  desc: "West Bank Station"
-};
-var eastBank = {
-  lat: 44.973694,
-  lon: -93.231075,
-  code: "EABK",
-  desc: "East Bank Station"
-};
-var stadiVill = {
-  lat: 44.974354,
-  lon: -93.223473,
-  code: "STVI",
-  desc: "Stadium Village Station"
-};
-var prospect = {
-  lat: 44.971592,
-  lon: -93.215324,
-  code: "PSPK",
-  desc: "Prospect Park Station"
-};
-var westgate = {
-  lat: 44.967373,
-  lon: -93.206253,
-  code: "WGAT",
-  desc: "Westgate Station"
-};
-var raymond = {
-  lat: 44.963333,
-  lon: -93.195862,
-  code: "RAST",
-  desc: "Raymond Ave Station"
-};
-var fairview = {
-  lat: 44.956234,
-  lon: -93.178458,
-  code: "FAUN",
-  desc: "Fairview Ave Station"
-};
-var snelling = {
-  lat: 44.955662,
-  lon: -93.166718,
-  code: "SNUN",
-  desc: "Snelling Ave Station"
-};
-var hamline = {
-  lat: 44.955746,
-  lon: -93.157051,
-  code: "HMUN",
-  desc: "Hamline Ave Station"
-};
-var lexington = {
-  lat: 44.955681,
-  lon: -93.146278,
-  code: "LXUN",
-  desc: "Lexington Pkwy Station"
-};
-var victoria = {
-  lat: 44.955696,
-  lon: -93.136306,
-  code: "VIUN",
-  desc: "Victoria St Station"
-};
-var dale = {
-  lat: 44.955681,
-  lon: -93.125946,
-  code: "UNDA",
-  desc: "Dale St Station"
-};
-var western = {
-  lat: 44.955837,
-  lon: -93.116363,
-  code: "WEUN",
-  desc: "Western Ave Station"
-};
-var capitol = {
-  lat: 44.955734,
-  lon: -93.105324,
-  code: "UNRI",
-  desc: "Capitol Rice St Station"
-};
-var robert = {
-  lat: 44.954041,
-  lon: -93.097458,
-  code: "ROST",
-  desc: "Robert St Station"
-};
-var tenthSt = {
-  lat: 44.950168,
-  lon: -93.097061,
-  code: "10CE",
-  desc: "10th St Station"
-};
-var central = {
-  lat: 44.946098,
-  lon: -93.092445,
-  code: "CNST",
-  desc: "Central Station"
-};
-var union = {
-  lat: 44.947319,
-  lon: -93.084684,
-  code: "UNDP",
-  desc: "Union Depot"
-};
-
-var stations = [target, warehouse, nicollet, government, downtown, westBank, 
-                eastBank, stadiVill, prospect, westgate, raymond, fairview, 
-                snelling, hamline, lexington, victoria, dale, western, capitol, 
-                robert, tenthSt, central, union];
 
 console.log("starting javascript");
-
 function sendAppMessage(message, numTries, transactionId) {
 	numTries = numTries || 0;
 	if (numTries < maxTriesForSendingAppMessage) {
@@ -177,98 +34,63 @@ function sendAppMessage(message, numTries, transactionId) {
 		console.log('Failed sending AppMessage for transactionId:' + transactionId + '. Bailing. ' + JSON.stringify(message));
 	}
 }
-
-function makeRequest() {
-	var nearestStationStr;
+function makeRequest(lat, lon) {
+	var nearestStationStr, nearestStationCode;
 	var east1, east2;
+  var west1, west2;
 
 
 
 	//Creating and Opening the needed XMLHttpRequest Objects
-	var xhrStation= new XMLHttpRequest();
-  //xhrHash.open('GET','http://narwhy.pw/shibe/nethash/',true);
-	var xhrEast= new XMLHttpRequest();
-  //xhrDiff.open('GET','http://dogechain.info/chain/Dogecoin/q/getdifficulty?cache='+(Math.random()*1000000),true);
-	var xhrWest= new XMLHttpRequest();
-
-
-  
-  
-  
-  
-
-
-  
-
-  
-
-  
-  
-  
+	var xhr = new XMLHttpRequest();
+  xhr.open('GET',"http://narwhy.pw/greenline/api.php?cx="+lat+"&cy=" + lon + "&format=json", true);
+  xhr.send();
 	//timeouts?
-// 	xhr.timeout = timeoutForAPIRequest;
-// 	xhrBTC.timeout = timeoutForAPIRequest;
+	xhr.timeout = timeoutForAPIRequest;
 
-// 	xhr.onload = function(e) {
-// 		if (xhr.readyState == 4) {
-// 			if (xhr.status == 200) {
-
-
-// 				block=xhrBlock.responseText;
-//         block=block+'';
-				
-//         hashrate=xhrHash.responseText;
-//         console.log(hashrate+'');
+	xhr.onload = function(e) {
+		if (xhr.readyState == 4) {
+			if (xhr.status == 200) {
+        console.log(xhr.responseText);
+        var res = JSON.parse(xhr.responseText);
+        nearestStationStr = res.stationName;
+        nearestStationCode = res.stationID;
+        east1 = res.EastDeparture1;
+        east2 = res.EastDeparture2;
+        west1 = res.WestDeparture1;
+        west2 = res.WestDeparture2;
+        console.log(nearestStationStr);
+				console.log(nearestStationCode);
+        console.log(east1);
+        console.log(east2);
+        console.log(west1);
+        console.log(west2);
         
-
-// 				//Parsing the JSON Sources
-// 				var res = JSON.parse(xhr.responseText);
-// 				var resBTC = JSON.parse(xhrBTC.responseText);
-
-
-// 				//doing the required Math and stuff
-// 				pricePerK=(parseFloat(res.last)*1000);
-// 				pricePerBTC=(parseFloat(resBTC.last)*100000000);
-// 				difficulty=xhrDiff.responseText;
+        //Updating the Pebble
+        console.log("I am running now!");
         
-// 				hashrate=(parseFloat(hashrate)/1000000000);
-// 				difficulty=parseFloat(difficulty);
-        
-//         //Doing some Formatting so everything fits in its space.
-//         pricePerK=pricePerK.toFixed(2);
-//         pricePerBTC=pricePerBTC.toFixed(0);
-//         difficulty=difficulty.toFixed(1);
-//         hashrate=hashrate.toFixed(0);
-//         hashrate=hashrate+"GH/s";
-//         //Updating the Pebble
-        
-//         console.log("I am running now!");
-//         console.log(hashrate);
-// 				sendAppMessage({
-// 					'nearestStation': pricePerK,
-// 					'eastbound': pricePerBTC,
-// 					'westbound': block
-// 				});
+				sendAppMessage({
+					'nearestStation': nearestStationStr,
+          'nearestStationCode': nearestStationCode,
+					'eastbound': east1 + ", " + east2,
+					'westbound': west1 + ", " + west2
+				});
+			} else {
+				console.log('Request returned error code ' + xhr.status.toString());
+				sendAppMessage({'item_name': 'Error: ' + xhr.statusText});
+			}
+		}
+  };
+	xhr.ontimeout = function() {
+		console.log('Error: request timed out!');
+		sendAppMessage({'item_name': 'Error: Request timed out!'});
+	};
+	xhr.onerror = function(e) {
+		console.log(JSON.stringify(e));
+		sendAppMessage({'item_name': 'Error: Failed to connect!'});
+	};
+  xhr.send(null);
 
-// 			} else {
-// 				console.log('Request returned error code ' + xhr.status.toString());
-// 				sendAppMessage({'item_name': 'Error: ' + xhr.statusText});
-// 			}
-// 		}
-//   }
-// 	xhr.ontimeout = function() {
-// 		console.log('Error: request timed out!');
-// 		sendAppMessage({'item_name': 'Error: Request timed out!'});
-// 	};
-// 	xhr.onerror = function(e) {
-// 		console.log(JSON.stringify(e));
-// 		sendAppMessage({'item_name': 'Error: Failed to connect!'});
-// 	};
-// xhr.send(null);
-// xhrBTC.send(null);
-// xhrBlock.send(null);
-// xhrDiff.send(null);
-// xhrHash.send(null);
 
 }
 
@@ -284,20 +106,19 @@ function locationSuccess(pos) {
     // location next time
     localStorage.setItem(latKey, lat);
     localStorage.setItem(lonKey, lon);
-    lastLat = lat;
-    lastLon = lon;
   }
 
 function locationError(err) {
     console.log('location error (' + err.code + '): ' + err.message);
-    lat = lastLat;
-    lon = lastLon;
+    // getting the previous lat
+    lat = localStorage.getItem(1);
+    //getting the previous lon
+    lon = localStorage.getItem(2);
   }
 
 Pebble.addEventListener('appmessage', function(e) {
 	console.log('AppMessage received from Pebble: ' + JSON.stringify(e.payload));
-
-	makeRequest();
+	makeRequest(lat, lon);
 });
 
 Pebble.addEventListener("ready", function(e) {
@@ -306,3 +127,193 @@ Pebble.addEventListener("ready", function(e) {
 	Pebble.sendAppMessage({"message": "ready"});
   
 });
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+// comments, cause I spent a while hard coding things, in case I need it again, its here:
+// // all the greenline stations
+// var target = {
+//   lat: 44.98331,
+//   lon: -93.277048,
+//   code: "TF1O",
+//   desc: "Target Field Station Platform 1"
+// };
+// var warehouse = {
+//   lat: 44.980122,
+//   lon: -93.273159,
+//   code: "WARE",
+//   desc: "Warehouse District Hennepin Ave Station"
+// };
+// var nicollet = {
+//   lat: 44.978478,
+//   lon: -93.269934,
+//   code: "5SNI",
+//   desc: "Nicollet Mall Station"
+// };
+// var government = {
+//   lat: 44.976826,
+//   lon: -93.265951,
+//   code: "GOVT",
+//   desc: "Government Plaza Station"
+// };
+// var downtown = {
+//   lat: 44.975049,
+//   lon: -93.259732,
+//   code: "DTE",
+//   desc: "Downtown East Station"
+// };
+// var westBank = {
+//   lat: 44.972095,
+//   lon: -93.245586,
+//   code: "WEBK",
+//   desc: "West Bank Station"
+// };
+// var eastBank = {
+//   lat: 44.973694,
+//   lon: -93.231075,
+//   code: "EABK",
+//   desc: "East Bank Station"
+// };
+// var stadiVill = {
+//   lat: 44.974354,
+//   lon: -93.223473,
+//   code: "STVI",
+//   desc: "Stadium Village Station"
+// };
+// var prospect = {
+//   lat: 44.971592,
+//   lon: -93.215324,
+//   code: "PSPK",
+//   desc: "Prospect Park Station"
+// };
+// var westgate = {
+//   lat: 44.967373,
+//   lon: -93.206253,
+//   code: "WGAT",
+//   desc: "Westgate Station"
+// };
+// var raymond = {
+//   lat: 44.963333,
+//   lon: -93.195862,
+//   code: "RAST",
+//   desc: "Raymond Ave Station"
+// };
+// var fairview = {
+//   lat: 44.956234,
+//   lon: -93.178458,
+//   code: "FAUN",
+//   desc: "Fairview Ave Station"
+// };
+// var snelling = {
+//   lat: 44.955662,
+//   lon: -93.166718,
+//   code: "SNUN",
+//   desc: "Snelling Ave Station"
+// };
+// var hamline = {
+//   lat: 44.955746,
+//   lon: -93.157051,
+//   code: "HMUN",
+//   desc: "Hamline Ave Station"
+// };
+// var lexington = {
+//   lat: 44.955681,
+//   lon: -93.146278,
+//   code: "LXUN",
+//   desc: "Lexington Pkwy Station"
+// };
+// var victoria = {
+//   lat: 44.955696,
+//   lon: -93.136306,
+//   code: "VIUN",
+//   desc: "Victoria St Station"
+// };
+// var dale = {
+//   lat: 44.955681,
+//   lon: -93.125946,
+//   code: "UNDA",
+//   desc: "Dale St Station"
+// };
+// var western = {
+//   lat: 44.955837,
+//   lon: -93.116363,
+//   code: "WEUN",
+//   desc: "Western Ave Station"
+// };
+// var capitol = {
+//   lat: 44.955734,
+//   lon: -93.105324,
+//   code: "UNRI",
+//   desc: "Capitol Rice St Station"
+// };
+// var robert = {
+//   lat: 44.954041,
+//   lon: -93.097458,
+//   code: "ROST",
+//   desc: "Robert St Station"
+// };
+// var tenthSt = {
+//   lat: 44.950168,
+//   lon: -93.097061,
+//   code: "10CE",
+//   desc: "10th St Station"
+// };
+// var central = {
+//   lat: 44.946098,
+//   lon: -93.092445,
+//   code: "CNST",
+//   desc: "Central Station"
+// };
+// var union = {
+//   lat: 44.947319,
+//   lon: -93.084684,
+//   code: "UNDP",
+//   desc: "Union Depot"
+// };
+
+// var stations = [target, warehouse, nicollet, government, downtown, westBank, 
+//                 eastBank, stadiVill, prospect, westgate, raymond, fairview, 
+//                 snelling, hamline, lexington, victoria, dale, western, capitol, 
+//                 robert, tenthSt, central, union];
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
