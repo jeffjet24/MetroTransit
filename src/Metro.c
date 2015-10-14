@@ -51,7 +51,7 @@ void in_dropped_handler(AppMessageResult reason, void *context) {
 
 void update() {
 	app_message_outbox_send();
-  updateTimer=app_timer_register(300000, (AppTimerCallback) update, NULL);
+  updateTimer=app_timer_register(60000, (AppTimerCallback) update, NULL);
 }
 // handles all of the time changes
 void tick_handler(struct tm *tick_time, TimeUnits units_changed)
@@ -73,61 +73,67 @@ void window_load(Window *window)
     bitmap_layer_set_background_color(bg_layer, GColorBlack);
     bitmap_layer_set_bitmap(bg_layer, background_img);
     layer_add_child(window_get_root_layer(window), bitmap_layer_get_layer(bg_layer));
+    
 
 		//Time layer
     time_layer = text_layer_create(GRect(0, 20, 144, 62));
     text_layer_set_background_color(time_layer, GColorClear);
     text_layer_set_text_color(time_layer, GColorWhite);
     text_layer_set_text_alignment(time_layer, GTextAlignmentCenter);
+    text_layer_set_font(time_layer, fonts_get_system_font(FONT_KEY_BITHAM_30_BLACK));
     layer_add_child(window_get_root_layer(window), (Layer*) time_layer);
 
 		// naerestStationLayer
-		nearestStationLayer = text_layer_create(GRect(75, 106, 67, 24));
-		text_layer_set_text_color(nearestStationLayer, GColorWhite);
-		text_layer_set_background_color(nearestStationLayer, GColorClear);
-		text_layer_set_text_alignment(nearestStationLayer, GTextAlignmentCenter);
+// 		nearestStationLayer = text_layer_create(GRect(75, 106, 67, 24));
+// 		text_layer_set_text_color(nearestStationLayer, GColorWhite);
+// 		text_layer_set_background_color(nearestStationLayer, GColorClear);
+// 		text_layer_set_text_alignment(nearestStationLayer, GTextAlignmentCenter);
+    
+// 	  // eastboundLayer
+// 		eastboundLayer = text_layer_create(GRect(71, 88, 71, 24));
+// 		text_layer_set_text_color(eastboundLayer, GColorWhite);
+// 		text_layer_set_background_color(eastboundLayer, GColorClear);
+// 		text_layer_set_text_alignment(eastboundLayer, GTextAlignmentCenter);
 
-	  // eastboundLayer
-		eastboundLayer = text_layer_create(GRect(71, 88, 71, 24));
-		text_layer_set_text_color(eastboundLayer, GColorWhite);
-		text_layer_set_background_color(eastboundLayer, GColorClear);
-		text_layer_set_text_alignment(eastboundLayer, GTextAlignmentCenter);
+// 		// westboundLayer
+// 		westboundLayer = text_layer_create(GRect(65, 70, 77, 24));
+// 		text_layer_set_text_color(westboundLayer, GColorWhite);
+// 		text_layer_set_background_color(westboundLayer, GColorClear);
+// 		text_layer_set_text_alignment(westboundLayer, GTextAlignmentCenter);
 
-		// westboundLayer
-		westboundLayer = text_layer_create(GRect(65, 70, 77, 24));
-		text_layer_set_text_color(westboundLayer, GColorWhite);
-		text_layer_set_background_color(westboundLayer, GColorClear);
-		text_layer_set_text_alignment(westboundLayer, GTextAlignmentCenter);
-
-// 		text_layer_set_font(usdk_price_layer, fonts_load_custom_font(resource_get_handle(RESOURCE_ID_FONT_COMIC_SANS_20)));
-
+    //text_layer_set_font(usdk_price_layer, fonts_load_custom_font(resource_get_handle(RESOURCE_ID_FONT_COMIC_SANS_20)));
+    //text_layer_set_font(time_layer, fonts_get_system_font(FONT_KEY_LECO_20_BOLD_NUMBERS));
+  
     layer_add_child(window_get_root_layer(window), (Layer*) time_layer);
-		layer_add_child(window_get_root_layer(window), (Layer*) nearestStationLayer);
-		layer_add_child(window_get_root_layer(window), (Layer*) eastboundLayer);
-		layer_add_child(window_get_root_layer(window), (Layer*) westboundLayer);
+// 		layer_add_child(window_get_root_layer(window), (Layer*) nearestStationLayer);
+// 		layer_add_child(window_get_root_layer(window), (Layer*) eastboundLayer);
+// 		layer_add_child(window_get_root_layer(window), (Layer*) westboundLayer);
 
 
     //layer for the station label
     station_label_layer = text_layer_create(GRect(0, 70, 77, 24));
     text_layer_set_background_color(station_label_layer, GColorClear);
     text_layer_set_text_color(station_label_layer, GColorWhite);
-    text_layer_set_text_alignment(station_label_layer, GTextAlignmentLeft);
+    text_layer_set_text_alignment(station_label_layer, GTextAlignmentCenter);
+    text_layer_set_font(station_label_layer, fonts_get_system_font(FONT_KEY_GOTHIC_24));
     layer_add_child(window_get_root_layer(window), (Layer*) station_label_layer);
 
 
 
-    eastbound_label_layer = text_layer_create(GRect(0, 88, 71, 24));
+    eastbound_label_layer = text_layer_create(GRect(0, 95, 71, 24));
     text_layer_set_background_color(eastbound_label_layer, GColorClear);
     text_layer_set_text_color(eastbound_label_layer, GColorWhite);
-    text_layer_set_text_alignment(eastbound_label_layer, GTextAlignmentLeft);
+    text_layer_set_text_alignment(eastbound_label_layer, GTextAlignmentCenter);
+    text_layer_set_font(eastbound_label_layer, fonts_get_system_font(FONT_KEY_GOTHIC_24));
     layer_add_child(window_get_root_layer(window), (Layer*) eastbound_label_layer);
 
 
 
-    westbound_label_layer = text_layer_create(GRect(0, 106, 67, 24));
+    westbound_label_layer = text_layer_create(GRect(0, 120, 67, 24));
     text_layer_set_background_color(westbound_label_layer, GColorClear);
     text_layer_set_text_color(westbound_label_layer, GColorWhite);
-    text_layer_set_text_alignment(westbound_label_layer, GTextAlignmentLeft);
+    text_layer_set_text_alignment(westbound_label_layer, GTextAlignmentCenter);
+    text_layer_set_font(westbound_label_layer, fonts_get_system_font(FONT_KEY_GOTHIC_24));
     layer_add_child(window_get_root_layer(window), (Layer*) westbound_label_layer);
 
     //setting the labels for the numbers.
@@ -138,15 +144,14 @@ void window_load(Window *window)
 
 
 
-	//Get a time structure so that the face doesn't start blank
-        struct tm *t;
-        time_t temp;
-        temp = time(NULL);
-        t = localtime(&temp);
+	  //Get a time structure so that the face doesn't start blank
+    struct tm *t;
+    time_t temp;
+    temp = time(NULL);
+    t = localtime(&temp);
 
-        //Manually call the tick handler when the window is loading
-
-        tick_handler(t, MINUTE_UNIT);
+    //Manually call the tick handler when the window is loading
+    tick_handler(t, MINUTE_UNIT);
 
 }
 
@@ -154,9 +159,12 @@ void window_unload(Window *window)
 {
     //We will safely destroy the Window's elements here!
     text_layer_destroy(time_layer);
-    text_layer_destroy(nearestStationLayer);
-		text_layer_destroy(eastboundLayer);
-		text_layer_destroy(westboundLayer);
+//     text_layer_destroy(nearestStationLayer);
+// 		text_layer_destroy(eastboundLayer);
+// 		text_layer_destroy(westboundLayer);
+    text_layer_destroy(station_label_layer);
+		text_layer_destroy(eastbound_label_layer);
+		text_layer_destroy(westbound_label_layer);
     bitmap_layer_destroy(bg_layer);
 }
 
@@ -170,23 +178,23 @@ static void app_message_init(void) {
 
 void init()
 {
-        app_message_init();
+    app_message_init();
     update();
 		//Initialize the app elements here!
-        window = window_create();
-        window_set_window_handlers(window, (WindowHandlers) {
-                .load = window_load,
-                .unload = window_unload,
-        });
+    window = window_create();
+    window_set_window_handlers(window, (WindowHandlers) {
+            .load = window_load,
+            .unload = window_unload,
+    });
 
-        tick_timer_service_subscribe(MINUTE_UNIT, (TickHandler) tick_handler);
+    tick_timer_service_subscribe(MINUTE_UNIT, (TickHandler) tick_handler);
 
 		window_stack_push(window, true);
 
   //update the data
   update();
   //psleep(2000);
-  updateTimer=app_timer_register(300000,(AppTimerCallback) update, NULL);
+  updateTimer=app_timer_register(60000,(AppTimerCallback) update, NULL);
 }
 
 void deinit()
