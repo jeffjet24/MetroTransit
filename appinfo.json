@@ -12,6 +12,7 @@
     "sdkVersion": "3",
     "shortName": "MetroTransit",
     "targetPlatforms": [
+        "aplite",
         "basalt"
     ],
     "uuid": "2af550b3-b70d-4196-bffa-d1d82d38325e",
