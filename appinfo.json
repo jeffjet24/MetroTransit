@@ -12,14 +12,32 @@
     "longName": "MetroTransit",
     "projectType": "native",
     "resources": {
-        "media": []
+        "media": [
+            {
+                "file": "images/MetroTransitLogoBW.png",
+                "menuIcon": true,
+                "name": "MENU_LOGO_BW",
+                "targetPlatforms": [
+                    "aplite",
+                    "basalt"
+                ],
+                "type": "png"
+            },
+            {
+                "file": "images/MetroTransitLogo.png",
+                "name": "MENU_IMAGE",
+                "targetPlatforms": [
+                    "basalt"
+                ],
+                "type": "png"
+            }
+        ]
     },
     "sdkVersion": "3",
-    "shortName": "MetroTransit",
+    "shortName": "Metro",
     "targetPlatforms": [
         "aplite",
-        "basalt",
-        "chalk"
+        "basalt"
     ],
     "uuid": "2af550b3-b70d-4196-bffa-d1d82d38325e",
     "versionLabel": "1.0",
