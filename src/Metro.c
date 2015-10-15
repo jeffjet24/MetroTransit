@@ -51,6 +51,7 @@ void in_dropped_handler(AppMessageResult reason, void *context) {
 }
 
 void update() {
+  // updating for aplite devices
 	app_message_outbox_send();
   updateTimer=app_timer_register(60000, (AppTimerCallback) update, NULL);
 }
@@ -204,15 +205,13 @@ void init()
 
   //update the data
   update();
-  //psleep(2000);
-  updateTimer=app_timer_register(10000,(AppTimerCallback) update, NULL);
+  updateTimer=app_timer_register(60000,(AppTimerCallback) update, NULL);
 }
 
 void deinit()
 {
         //De-initialize elements here to save memory!
         tick_timer_service_unsubscribe();
-
         window_destroy(window);
         app_timer_cancel(updateTimer);
 }

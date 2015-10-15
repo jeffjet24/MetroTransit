@@ -44,9 +44,7 @@ function makeRequest() {
 	var east1, east2;
   var west1, west2;
 
-
-
-	//Creating and Opening the needed XMLHttpRequest Objects
+	//Creating and Opening the needed XMLHttpRequest Object
 	var xhr = new XMLHttpRequest();
   xhr.open('GET',"http://narwhy.pw/greenline/api.php?cx="+lat+"&cy=" + lon + "&format=json", true);
   xhr.send();
@@ -71,9 +69,9 @@ function makeRequest() {
         console.log(west1);
         console.log(west2);
         
-        //Updating the Pebble
-        console.log("I am running now!");
         
+        //console.log("I am running now!");
+        //Updating the Pebble
 				sendAppMessage({
 					'nearestStation': nearestStationStr,
           'nearestStationCode': nearestStationCode,
@@ -111,8 +109,8 @@ function locationSuccess(pos) {
     // location next time
     localStorage.setItem(latKey, lat);
     localStorage.setItem(lonKey, lon);
-  }
-
+}
+// function for when the device cannot get the location.
 function locationError(err) {
     console.log('location error (' + err.code + '): ' + err.message);
     if((localStorage.getItem(1) === null) || (localStorage.getItem(2) === null)){
@@ -125,12 +123,13 @@ function locationError(err) {
       lon = localStorage.getItem(2);
     }
 }
-
+// event listener for when the javascript sends a message to the pebble. 
 Pebble.addEventListener('appmessage', function(e) {
 	console.log('AppMessage received from Pebble: ' + JSON.stringify(e.payload));
-	makeRequest();
+	//makeRequest();
 });
 
+// event listern for when the pebble app has loaded and is ready for connections
 Pebble.addEventListener("ready", function(e) {
 	console.log("PEBBLEJS connected!" + e.ready);
   navigator.geolocation.getCurrentPosition(locationSuccess, locationError, locationOptions);
