@@ -32,7 +32,6 @@ void out_failed_handler(DictionaryIterator *failed, AppMessageResult reason, voi
 
 static void in_received_handler(DictionaryIterator *iter, void *context) {
 	Tuple *nearestStationTuple = dict_find(iter, NEAREST_STATION_STRING);
-  //Tuple *nearestStationCodeTuple = dict_find(iter, NEAREST_STATION_CODE);
 	Tuple *eastboundTuple = dict_find(iter, EASTBOUND);
 	Tuple *westboundTuple = dict_find(iter, WESTBOUND);
 
@@ -91,7 +90,7 @@ void window_load(Window *window)
 
 
     //layer for the station label
-    station_label_layer = text_layer_create(GRect(0, 70, 75, 24));
+    station_label_layer = text_layer_create(GRect(0, 70, 55, 24));
     text_layer_set_background_color(station_label_layer, GColorClear);
     text_layer_set_text_color(station_label_layer, GColorWhite);
     text_layer_set_text_alignment(station_label_layer, GTextAlignmentLeft);
@@ -99,7 +98,7 @@ void window_load(Window *window)
 
 
     // eastbound label
-    eastbound_label_layer = text_layer_create(GRect(0, 95, 75, 24));
+    eastbound_label_layer = text_layer_create(GRect(0, 95, 60, 24));
     text_layer_set_background_color(eastbound_label_layer, GColorClear);
     text_layer_set_text_color(eastbound_label_layer, GColorWhite);
     text_layer_set_text_alignment(eastbound_label_layer, GTextAlignmentLeft);
@@ -107,7 +106,7 @@ void window_load(Window *window)
     
 
     // westbound label
-    westbound_label_layer = text_layer_create(GRect(0, 120, 75, 24));
+    westbound_label_layer = text_layer_create(GRect(0, 120, 60, 24));
     text_layer_set_background_color(westbound_label_layer, GColorClear);
     text_layer_set_text_color(westbound_label_layer, GColorWhite);
     text_layer_set_text_alignment(westbound_label_layer, GTextAlignmentLeft);
@@ -115,26 +114,26 @@ void window_load(Window *window)
     
   
     //naerestStationLayer
-		nearestStationLayer = text_layer_create(GRect(77, 70, 67, 24));
+		nearestStationLayer = text_layer_create(GRect(56, 70, 112, 24));
 		text_layer_set_text_color(nearestStationLayer, GColorWhite);
 		text_layer_set_background_color(nearestStationLayer, GColorClear);
-    text_layer_set_font(station_label_layer, fonts_get_system_font(FONT_KEY_GOTHIC_24));
+    text_layer_set_font(nearestStationLayer, fonts_get_system_font(FONT_KEY_GOTHIC_24));
 		text_layer_set_text_alignment(nearestStationLayer, GTextAlignmentLeft);
     
     
 	  // eastboundLayer
-		eastboundLayer = text_layer_create(GRect(77, 95, 67, 24));
+		eastboundLayer = text_layer_create(GRect(61, 95, 107, 24));
 		text_layer_set_text_color(eastboundLayer, GColorWhite);
 		text_layer_set_background_color(eastboundLayer, GColorClear);
-    text_layer_set_font(station_label_layer, fonts_get_system_font(FONT_KEY_GOTHIC_24));
+    text_layer_set_font(eastboundLayer, fonts_get_system_font(FONT_KEY_GOTHIC_24));
 		text_layer_set_text_alignment(eastboundLayer, GTextAlignmentLeft);
     
 
 		// westboundLayer
-		westboundLayer = text_layer_create(GRect(77, 120, 67, 24));
+		westboundLayer = text_layer_create(GRect(61, 120, 107, 24));
 		text_layer_set_text_color(westboundLayer, GColorWhite);
 		text_layer_set_background_color(westboundLayer, GColorClear);
-    text_layer_set_font(station_label_layer, fonts_get_system_font(FONT_KEY_GOTHIC_24));
+    text_layer_set_font(westboundLayer, fonts_get_system_font(FONT_KEY_GOTHIC_24));
 		text_layer_set_text_alignment(westboundLayer, GTextAlignmentLeft);
     
     //adding all the layers
@@ -206,7 +205,7 @@ void init()
   //update the data
   update();
   //psleep(2000);
-  updateTimer=app_timer_register(60000,(AppTimerCallback) update, NULL);
+  updateTimer=app_timer_register(10000,(AppTimerCallback) update, NULL);
 }
 
 void deinit()
