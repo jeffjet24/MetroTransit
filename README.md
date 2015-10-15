@@ -4,6 +4,7 @@ It uses the location of your phone to determine the nearest station and the expe
 
 It is currently compatible with the original Pebble Watches (Pebble and Pebble Steel), and the Pebble Time Watches (The Pebble Time and Pebble Time Steel). It currently does not have support for the Pebble Time Round, that support is expected soon.
 
+The pebble app uses an API, which has the code available at https://github.com/benpete22/Metro.
 
 # Current State of Development
 The application is in a very young state, so it does not have much error checking as of yet, and that is my next goal.
@@ -17,4 +18,4 @@ The application is in a very young state, so it does not have much error checkin
 
 
 # Questions? Feature Suggestions? Comments?
-Feel free to add a new issue under the repo, and I will get to it right away. :) I am very open to suggestions as I am developing this application. 
+Feel free to add a new issue under the repo, and I will get to it right away. :) I am very open to suggestions as I am developing this application.
