@@ -90,15 +90,15 @@ void window_load(Window *window)
 
 
     //layer for the station label
-    station_label_layer = text_layer_create(GRect(0, 70, 55, 24));
-    text_layer_set_background_color(station_label_layer, GColorClear);
-    text_layer_set_text_color(station_label_layer, GColorWhite);
-    text_layer_set_text_alignment(station_label_layer, GTextAlignmentLeft);
-    text_layer_set_font(station_label_layer, fonts_get_system_font(FONT_KEY_GOTHIC_24));
+//     station_label_layer = text_layer_create(GRect(0, 70, 55, 24));
+//     text_layer_set_background_color(station_label_layer, GColorClear);
+//     text_layer_set_text_color(station_label_layer, GColorWhite);
+//     text_layer_set_text_alignment(station_label_layer, GTextAlignmentLeft);
+//     text_layer_set_font(station_label_layer, fonts_get_system_font(FONT_KEY_GOTHIC_24));
 
 
     // eastbound label
-    eastbound_label_layer = text_layer_create(GRect(0, 95, 60, 24));
+    eastbound_label_layer = text_layer_create(GRect(0, 95, 24, 24));
     text_layer_set_background_color(eastbound_label_layer, GColorClear);
     text_layer_set_text_color(eastbound_label_layer, GColorWhite);
     text_layer_set_text_alignment(eastbound_label_layer, GTextAlignmentLeft);
@@ -106,7 +106,7 @@ void window_load(Window *window)
     
 
     // westbound label
-    westbound_label_layer = text_layer_create(GRect(0, 120, 60, 24));
+    westbound_label_layer = text_layer_create(GRect(0, 120, 24, 24));
     text_layer_set_background_color(westbound_label_layer, GColorClear);
     text_layer_set_text_color(westbound_label_layer, GColorWhite);
     text_layer_set_text_alignment(westbound_label_layer, GTextAlignmentLeft);
@@ -114,7 +114,7 @@ void window_load(Window *window)
     
   
     //naerestStationLayer
-		nearestStationLayer = text_layer_create(GRect(56, 70, 112, 24));
+		nearestStationLayer = text_layer_create(GRect(0, 70, 144, 24));
 		text_layer_set_text_color(nearestStationLayer, GColorWhite);
 		text_layer_set_background_color(nearestStationLayer, GColorClear);
     text_layer_set_font(nearestStationLayer, fonts_get_system_font(FONT_KEY_GOTHIC_24));
@@ -122,7 +122,7 @@ void window_load(Window *window)
     
     
 	  // eastboundLayer
-		eastboundLayer = text_layer_create(GRect(61, 95, 107, 24));
+		eastboundLayer = text_layer_create(GRect(25, 95, 119, 24));
 		text_layer_set_text_color(eastboundLayer, GColorWhite);
 		text_layer_set_background_color(eastboundLayer, GColorClear);
     text_layer_set_font(eastboundLayer, fonts_get_system_font(FONT_KEY_GOTHIC_24));
@@ -130,7 +130,7 @@ void window_load(Window *window)
     
 
 		// westboundLayer
-		westboundLayer = text_layer_create(GRect(61, 120, 107, 24));
+		westboundLayer = text_layer_create(GRect(25, 120, 119, 24));
 		text_layer_set_text_color(westboundLayer, GColorWhite);
 		text_layer_set_background_color(westboundLayer, GColorClear);
     text_layer_set_font(westboundLayer, fonts_get_system_font(FONT_KEY_GOTHIC_24));
@@ -141,7 +141,7 @@ void window_load(Window *window)
 		layer_add_child(window_get_root_layer(window), (Layer*) nearestStationLayer);
 		layer_add_child(window_get_root_layer(window), (Layer*) eastboundLayer);
 		layer_add_child(window_get_root_layer(window), (Layer*) westboundLayer);
-    layer_add_child(window_get_root_layer(window), (Layer*) station_label_layer);  
+    //layer_add_child(window_get_root_layer(window), (Layer*) station_label_layer);  
     layer_add_child(window_get_root_layer(window), (Layer*) eastbound_label_layer);
     layer_add_child(window_get_root_layer(window), (Layer*) westbound_label_layer);
     
@@ -150,9 +150,9 @@ void window_load(Window *window)
     text_layer_set_text(eastboundLayer, "");
     text_layer_set_text(westboundLayer, "");
     //setting the labels for the numbers.
-    text_layer_set_text(station_label_layer, "Station:");
-    text_layer_set_text(eastbound_label_layer,"East:");
-    text_layer_set_text(westbound_label_layer,"West:");
+    //text_layer_set_text(station_label_layer, "Station:");
+    text_layer_set_text(eastbound_label_layer,"E:");
+    text_layer_set_text(westbound_label_layer,"W:");
   
     
 
@@ -170,10 +170,10 @@ void window_unload(Window *window)
 {
     //We will safely destroy the Window's elements here!
     text_layer_destroy(time_layer);
-//     text_layer_destroy(nearestStationLayer);
-// 		text_layer_destroy(eastboundLayer);
-// 		text_layer_destroy(westboundLayer);
-    text_layer_destroy(station_label_layer);
+    text_layer_destroy(nearestStationLayer);
+		text_layer_destroy(eastboundLayer);
+		text_layer_destroy(westboundLayer);
+//     text_layer_destroy(station_label_layer);
 		text_layer_destroy(eastbound_label_layer);
 		text_layer_destroy(westbound_label_layer);
     bitmap_layer_destroy(bg_layer);
