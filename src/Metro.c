@@ -32,7 +32,7 @@ void out_failed_handler(DictionaryIterator *failed, AppMessageResult reason, voi
 
 static void in_received_handler(DictionaryIterator *iter, void *context) {
 	Tuple *nearestStationTuple = dict_find(iter, NEAREST_STATION_STRING);
-  Tuple *nearestStationCodeTuple = dict_find(iter, NEAREST_STATION_CODE);
+  //Tuple *nearestStationCodeTuple = dict_find(iter, NEAREST_STATION_CODE);
 	Tuple *eastboundTuple = dict_find(iter, EASTBOUND);
 	Tuple *westboundTuple = dict_find(iter, WESTBOUND);
 

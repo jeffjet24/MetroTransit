@@ -2,18 +2,23 @@
 var maxTriesForSendingAppMessage = 3;
 var timeoutForAppMessageRetry = 3000;
 var timeoutForAPIRequest = 3000;
-// Persist read a key's value. May be null!
-// getting the previous lat
-var lat = localStorage.getItem(1);
-//getting the previous lon
-var lon = localStorage.getItem(2);
 
-var id;
+// Persist read a key's value. May be null!
+if((localStorage.getItem(1) === null) || (localStorage.getItem(2) === null)){
+  var lat, lon;
+}else{
+  // getting the previous lat
+  var lat = localStorage.getItem(1);
+  //getting the previous lon
+  var lon = localStorage.getItem(2);
+}
+
 var locationOptions = {
   enableHighAccuracy: true, 
   maximumAge: 30000, 
   timeout: 5000
 };
+
 
 
 console.log("starting javascript");
@@ -34,7 +39,7 @@ function sendAppMessage(message, numTries, transactionId) {
 		console.log('Failed sending AppMessage for transactionId:' + transactionId + '. Bailing. ' + JSON.stringify(message));
 	}
 }
-function makeRequest(lat, lon) {
+function makeRequest() {
 	var nearestStationStr, nearestStationCode;
 	var east1, east2;
   var west1, west2;
@@ -95,7 +100,7 @@ function makeRequest(lat, lon) {
 }
 
 function locationSuccess(pos) {
-    console.log('Location changed!');
+    console.log('Got Location!');
     lat = pos.coords.latitude;
     lon = pos.coords.longitude;
     console.log('lat= ' + lat + ' lon= ' + lon);
@@ -110,22 +115,27 @@ function locationSuccess(pos) {
 
 function locationError(err) {
     console.log('location error (' + err.code + '): ' + err.message);
-    // getting the previous lat
-    lat = localStorage.getItem(1);
-    //getting the previous lon
-    lon = localStorage.getItem(2);
-  }
+    if((localStorage.getItem(1) === null) || (localStorage.getItem(2) === null)){
+      lat = 0;
+      lon = 0;
+    }else{
+      // getting the previous lat
+      lat = localStorage.getItem(1);
+      //getting the previous lon
+      lon = localStorage.getItem(2);
+    }
+}
 
 Pebble.addEventListener('appmessage', function(e) {
 	console.log('AppMessage received from Pebble: ' + JSON.stringify(e.payload));
-	makeRequest(lat, lon);
+	makeRequest();
 });
 
 Pebble.addEventListener("ready", function(e) {
 	console.log("PEBBLEJS connected!" + e.ready);
-  id = navigator.geolocation.watchPosition(locationSuccess, locationError, locationOptions);
+  navigator.geolocation.getCurrentPosition(locationSuccess, locationError, locationOptions);
+  makeRequest();
 	Pebble.sendAppMessage({"message": "ready"});
-  
 });
 
 
