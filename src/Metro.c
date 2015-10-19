@@ -22,6 +22,14 @@ enum {
   WESTBOUND
 };
 
+// setting up the click handler for a center click
+static void select_click_handler(ClickRecognizerRef recognizer, void *context) {
+  app_message_outbox_send();
+}
+static void click_config_provider(void *context) {
+  // Register the ClickHandlers
+  window_single_click_subscribe(BUTTON_ID_SELECT, select_click_handler);
+}
 static void out_sent_handler(DictionaryIterator *sent, void *context) {
 	// outgoing message was delivered
 }
@@ -52,8 +60,8 @@ void in_dropped_handler(AppMessageResult reason, void *context) {
 
 void update() {
   // updating for aplite devices
-	app_message_outbox_send();
-  updateTimer=app_timer_register(60000, (AppTimerCallback) update, NULL);
+	//app_message_outbox_send();
+  //updateTimer=app_timer_register(60000, (AppTimerCallback) update, NULL);
 }
 // handles all of the time changes
 void tick_handler(struct tm *tick_time, TimeUnits units_changed)
@@ -169,15 +177,15 @@ void window_load(Window *window)
 
 void window_unload(Window *window)
 {
-    //We will safely destroy the Window's elements here!
-    text_layer_destroy(time_layer);
-    text_layer_destroy(nearestStationLayer);
-		text_layer_destroy(eastboundLayer);
-		text_layer_destroy(westboundLayer);
-//     text_layer_destroy(station_label_layer);
-		text_layer_destroy(eastbound_label_layer);
-		text_layer_destroy(westbound_label_layer);
-    bitmap_layer_destroy(bg_layer);
+  //We will safely destroy the Window's elements here!
+  text_layer_destroy(time_layer);
+  text_layer_destroy(nearestStationLayer);
+  text_layer_destroy(eastboundLayer);
+  text_layer_destroy(westboundLayer);
+//text_layer_destroy(station_label_layer);
+  text_layer_destroy(eastbound_label_layer);
+  text_layer_destroy(westbound_label_layer);
+  bitmap_layer_destroy(bg_layer);
 }
 
 static void app_message_init(void) {
@@ -190,35 +198,35 @@ static void app_message_init(void) {
 
 void init()
 {
-    app_message_init();
-    update();
-		//Initialize the app elements here!
-    window = window_create();
-    window_set_window_handlers(window, (WindowHandlers) {
-            .load = window_load,
-            .unload = window_unload,
-    });
+  app_message_init();
+  //update();
+  //Initialize the app elements here!
+  window = window_create();
+  window_set_window_handlers(window, (WindowHandlers) {
+          .load = window_load,
+          .unload = window_unload,
+  });
+  window_set_click_config_provider(window, click_config_provider);
+  tick_timer_service_subscribe(MINUTE_UNIT, (TickHandler) tick_handler);
 
-    tick_timer_service_subscribe(MINUTE_UNIT, (TickHandler) tick_handler);
-
-		window_stack_push(window, true);
+	window_stack_push(window, true);
 
   //update the data
-  update();
-  updateTimer=app_timer_register(60000,(AppTimerCallback) update, NULL);
+  //update();
+  //updateTimer=app_timer_register(60000,(AppTimerCallback) update, NULL);
 }
 
 void deinit()
 {
-        //De-initialize elements here to save memory!
-        tick_timer_service_unsubscribe();
-        window_destroy(window);
-        app_timer_cancel(updateTimer);
+  //De-initialize elements here to save memory!
+  tick_timer_service_unsubscribe();
+  window_destroy(window);
+  app_timer_cancel(updateTimer);
 }
 
 int main(void)
 {
-        init();
-        app_event_loop();
-        deinit();
+  init();
+  app_event_loop();
+  deinit();
 }

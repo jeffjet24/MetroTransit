@@ -14,19 +14,19 @@
     "resources": {
         "media": [
             {
-                "file": "images/MetroTransitLogoBW.png",
-                "menuIcon": true,
-                "name": "MENU_LOGO_BW",
+                "file": "images/MetroTransitLogo.png",
+                "name": "MENU_IMAGE",
                 "targetPlatforms": [
-                    "aplite",
                     "basalt"
                 ],
                 "type": "png"
             },
             {
-                "file": "images/MetroTransitLogo.png",
-                "name": "MENU_IMAGE",
+                "file": "images/MetroTransitLogoBW.png",
+                "menuIcon": true,
+                "name": "MENU_LOGO_BW",
                 "targetPlatforms": [
+                    "aplite",
                     "basalt"
                 ],
                 "type": "png"
