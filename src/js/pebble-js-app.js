@@ -2,7 +2,7 @@
 var maxTriesForSendingAppMessage = 3;
 var timeoutForAppMessageRetry = 3000;
 var timeoutForAPIRequest = 3000;
-var updateDataInterval = 60000;
+var updateDataInterval = 30000;
 
 // Persist read a key's value. May be null!
 if((localStorage.getItem(1) === null) || (localStorage.getItem(2) === null)){
