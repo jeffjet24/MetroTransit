@@ -9,6 +9,7 @@ if((localStorage.getItem(1) === null) || (localStorage.getItem(2) === null)){
   var lat, lon;
 }else{
   // getting the previous lat
+  //var lat, lon;
   var lat = localStorage.getItem(1);
   //getting the previous lon
   var lon = localStorage.getItem(2);
@@ -81,18 +82,36 @@ function makeRequest() {
 				});
 			} else {
 				console.log('Request returned error code ' + xhr.status.toString());
-				sendAppMessage({'item_name': 'Error: ' + xhr.statusText});
+        sendAppMessage({
+          'nearestStation': "Error: " + xhr.status.toString(),
+          'nearestStationCode': nearestStationCode,
+          'eastbound': "Please Restart",
+          'westbound': "The App"
+        });
+				//sendAppMessage({'item_name': 'Error: ' + xhr.statusText});
 			}
 		}
     
   };
 	xhr.ontimeout = function() {
 		console.log('Error: request timed out!');
-		sendAppMessage({'item_name': 'Error: Request timed out!'});
+    sendAppMessage({
+      'nearestStation': "Timeout Error",
+      'nearestStationCode': nearestStationCode,
+      'eastbound': "Please Restart",
+      'westbound': "The App"
+    });
+		//sendAppMessage({'item_name': 'Error: Request timed out!'});
 	};
 	xhr.onerror = function(e) {
+    sendAppMessage({
+					'nearestStation': "Error Encountered",
+          'nearestStationCode': nearestStationCode,
+					'eastbound': "Please Restart",
+					'westbound': "The App"
+				});
 		console.log(JSON.stringify(e));
-		sendAppMessage({'item_name': 'Error: Failed to connect!'});
+		//sendAppMessage({'item_name': 'Error: Failed to connect!'});
 	};
   xhr.send(null);
   
@@ -116,15 +135,22 @@ function locationSuccess(pos) {
 // function for when the device cannot get the location.
 function locationError(err) {
     console.log('location error (' + err.code + '): ' + err.message);
-    if((localStorage.getItem(1) === null) || (localStorage.getItem(2) === null)){
-      lat = 0;
-      lon = 0;
-    }else{
-      // getting the previous lat
-      lat = localStorage.getItem(1);
-      //getting the previous lon
-      lon = localStorage.getItem(2);
-    }
+    sendAppMessage({
+					'nearestStation': "Location Error",
+          'nearestStationCode': "",
+					'eastbound': "Please Restart",
+					'westbound': "The App"
+		});
+    lat = 0;
+    lon = 0;
+//     if((localStorage.getItem(1) === null) || (localStorage.getItem(2) === null)){
+      
+//     }else{
+//       // getting the previous lat
+//       lat = localStorage.getItem(1);
+//       //getting the previous lon
+//       lon = localStorage.getItem(2);
+//     }
 }
 // event listener for when the javascript sends a message to the pebble. 
 Pebble.addEventListener('appmessage', function(e) {
