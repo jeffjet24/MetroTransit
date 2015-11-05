@@ -6,7 +6,8 @@ var updateDataInterval = 30000;
 
 // Persist read a key's value. May be null!
 if((localStorage.getItem(1) === null) || (localStorage.getItem(2) === null)){
-  var lat, lon;
+  var lat = 0;
+  var lon = 0;
 }else{
   // getting the previous lat
   //var lat, lon;
