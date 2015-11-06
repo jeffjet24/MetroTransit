@@ -101,7 +101,9 @@ void window_load(Window *window)
     //GRect bounds = bitmap_layer_get_bounds(bg_layer);
     //bg_layer = bitmap_layer_create(GRect(0, 0, 144, 168));
     #ifdef PBL_COLOR
-      window_set_background_color(window, GColorDukeBlue);
+      //have a config file for choosing colors
+      //window_set_background_color(window, GColorIslamicGreen);
+      window_set_background_color(window, GColorBlack);
     #else
       window_set_background_color(window, GColorBlack);
     #endif
