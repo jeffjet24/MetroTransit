@@ -59,7 +59,7 @@ void in_dropped_handler(AppMessageResult reason, void *context) {
 }
 
 void update() {
-  // updating for aplite devices
+  // updating for aplite devices?
 	//app_message_outbox_send();
   //updateTimer=app_timer_register(60000, (AppTimerCallback) update, NULL);
 }
@@ -77,9 +77,15 @@ void tick_handler(struct tm *tick_time, TimeUnits units_changed)
 
 void window_load(Window *window)
 {
+    #if defined(PBL_RECT)
+      bg_layer = bitmap_layer_create(GRect(0, 0, 144, 168));
+    #elif defined(PBL_ROUND)
+      bg_layer = bitmap_layer_create(GRect(0, 0, 180, 180));
+    #endif
     //Background Layer
 		//background_img = gbitmap_create_with_resource(RESOURCE_ID_IMAGE_BG);
-    bg_layer = bitmap_layer_create(GRect(0, 0, 144, 168));
+    //GRect bounds = bitmap_layer_get_bounds(bg_layer);
+    //bg_layer = bitmap_layer_create(GRect(0, 0, 144, 168));
     bitmap_layer_set_background_color(bg_layer, GColorBlack);
     bitmap_layer_set_bitmap(bg_layer, background_img);
     layer_add_child(window_get_root_layer(window), bitmap_layer_get_layer(bg_layer));

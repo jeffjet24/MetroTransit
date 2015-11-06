@@ -25,10 +25,6 @@
                 "file": "images/MetroTransitLogoBW.png",
                 "menuIcon": true,
                 "name": "MENU_LOGO_BW",
-                "targetPlatforms": [
-                    "aplite",
-                    "basalt"
-                ],
                 "type": "png"
             }
         ]
@@ -37,7 +33,8 @@
     "shortName": "Metro",
     "targetPlatforms": [
         "aplite",
-        "basalt"
+        "basalt",
+        "chalk"
     ],
     "uuid": "2af550b3-b70d-4196-bffa-d1d82d38325e",
     "versionLabel": "1.0",
