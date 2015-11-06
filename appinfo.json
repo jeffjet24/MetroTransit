@@ -6,7 +6,8 @@
         "westbound": 3
     },
     "capabilities": [
-        "location"
+        "location",
+        "configurable"
     ],
     "companyName": "BenPete22, Jeffjet24",
     "longName": "MetroTransit",

@@ -10,8 +10,8 @@ TextLayer *eastbound_label_layer;
 TextLayer *westbound_label_layer;
 
 AppTimer *updateTimer;
-static GBitmap *background_img;
-static BitmapLayer* bg_layer;
+//static GBitmap *background_img;
+//static BitmapLayer* bg_layer;
 
 char buffer[] = "00:00";
 
@@ -77,22 +77,41 @@ void tick_handler(struct tm *tick_time, TimeUnits units_changed)
 
 void window_load(Window *window)
 {
+    // changing placement of items based on the shape of the device
     #if defined(PBL_RECT)
-      bg_layer = bitmap_layer_create(GRect(0, 0, 144, 168));
+      //bg_layer = bitmap_layer_create(GRect(0, 0, 144, 168));
+      time_layer = text_layer_create(GRect(0, 20, 144, 62));
+      eastbound_label_layer = text_layer_create(GRect(0, 95, 24, 24));
+      westbound_label_layer = text_layer_create(GRect(0, 120, 24, 24));
+      nearestStationLayer = text_layer_create(GRect(0, 70, 144, 24));
+      eastboundLayer = text_layer_create(GRect(25, 95, 119, 24));
+      westboundLayer = text_layer_create(GRect(25, 120, 119, 24));
     #elif defined(PBL_ROUND)
-      bg_layer = bitmap_layer_create(GRect(0, 0, 180, 180));
+      //bg_layer = bitmap_layer_create(GRect(0, 0, 180, 180));
+      time_layer = text_layer_create(GRect(20, 20, 144, 62));
+      eastbound_label_layer = text_layer_create(GRect(30, 95, 24, 24));
+      westbound_label_layer = text_layer_create(GRect(30, 120, 24, 24));
+      nearestStationLayer = text_layer_create(GRect(30, 70, 144, 24));
+      eastboundLayer = text_layer_create(GRect(55, 95, 119, 24));
+      westboundLayer = text_layer_create(GRect(55, 120, 119, 24));
     #endif
+  
     //Background Layer
 		//background_img = gbitmap_create_with_resource(RESOURCE_ID_IMAGE_BG);
     //GRect bounds = bitmap_layer_get_bounds(bg_layer);
     //bg_layer = bitmap_layer_create(GRect(0, 0, 144, 168));
-    bitmap_layer_set_background_color(bg_layer, GColorBlack);
-    bitmap_layer_set_bitmap(bg_layer, background_img);
-    layer_add_child(window_get_root_layer(window), bitmap_layer_get_layer(bg_layer));
+    #ifdef PBL_COLOR
+      window_set_background_color(window, GColorDukeBlue);
+    #else
+      window_set_background_color(window, GColorBlack);
+    #endif
+//     bitmap_layer_set_background_color(bg_layer, GColorBlack);
+//     bitmap_layer_set_bitmap(bg_layer, background_img);
+//     layer_add_child(window_get_root_layer(window), bitmap_layer_get_layer(bg_layer));
     
 
 		//Time layer
-    time_layer = text_layer_create(GRect(0, 20, 144, 62));
+    //time_layer = text_layer_create(GRect(0, 20, 144, 62));
     text_layer_set_background_color(time_layer, GColorClear);
     text_layer_set_text_color(time_layer, GColorWhite);
     text_layer_set_text_alignment(time_layer, GTextAlignmentCenter);
@@ -113,7 +132,7 @@ void window_load(Window *window)
 
 
     // eastbound label
-    eastbound_label_layer = text_layer_create(GRect(0, 95, 24, 24));
+    //eastbound_label_layer = text_layer_create(GRect(0, 95, 24, 24));
     text_layer_set_background_color(eastbound_label_layer, GColorClear);
     text_layer_set_text_color(eastbound_label_layer, GColorWhite);
     text_layer_set_text_alignment(eastbound_label_layer, GTextAlignmentLeft);
@@ -121,7 +140,7 @@ void window_load(Window *window)
     
 
     // westbound label
-    westbound_label_layer = text_layer_create(GRect(0, 120, 24, 24));
+    //westbound_label_layer = text_layer_create(GRect(0, 120, 24, 24));
     text_layer_set_background_color(westbound_label_layer, GColorClear);
     text_layer_set_text_color(westbound_label_layer, GColorWhite);
     text_layer_set_text_alignment(westbound_label_layer, GTextAlignmentLeft);
@@ -129,7 +148,7 @@ void window_load(Window *window)
     
   
     //naerestStationLayer
-		nearestStationLayer = text_layer_create(GRect(0, 70, 144, 24));
+		//nearestStationLayer = text_layer_create(GRect(0, 70, 144, 24));
 		text_layer_set_text_color(nearestStationLayer, GColorWhite);
 		text_layer_set_background_color(nearestStationLayer, GColorClear);
     text_layer_set_font(nearestStationLayer, fonts_get_system_font(FONT_KEY_GOTHIC_24));
@@ -137,7 +156,7 @@ void window_load(Window *window)
     
     
 	  // eastboundLayer
-		eastboundLayer = text_layer_create(GRect(25, 95, 119, 24));
+		//eastboundLayer = text_layer_create(GRect(25, 95, 119, 24));
 		text_layer_set_text_color(eastboundLayer, GColorWhite);
 		text_layer_set_background_color(eastboundLayer, GColorClear);
     text_layer_set_font(eastboundLayer, fonts_get_system_font(FONT_KEY_GOTHIC_24));
@@ -145,7 +164,7 @@ void window_load(Window *window)
     
 
 		// westboundLayer
-		westboundLayer = text_layer_create(GRect(25, 120, 119, 24));
+		//westboundLayer = text_layer_create(GRect(25, 120, 119, 24));
 		text_layer_set_text_color(westboundLayer, GColorWhite);
 		text_layer_set_background_color(westboundLayer, GColorClear);
     text_layer_set_font(westboundLayer, fonts_get_system_font(FONT_KEY_GOTHIC_24));
@@ -191,7 +210,7 @@ void window_unload(Window *window)
 //text_layer_destroy(station_label_layer);
   text_layer_destroy(eastbound_label_layer);
   text_layer_destroy(westbound_label_layer);
-  bitmap_layer_destroy(bg_layer);
+  //bitmap_layer_destroy(bg_layer);
 }
 
 static void app_message_init(void) {
