@@ -1,0 +1,49 @@
+{
+    "author": "BenPete22, Jeffjet24",
+    "dependencies": {},
+    "keywords": [],
+    "name": "metro",
+    "pebble": {
+        "capabilities": [
+            "location"
+        ],
+        "displayName": "MetroTransit",
+        "enableMultiJS": false,
+        "messageKeys": {
+            "eastbound": 2,
+            "nearestStation": 0,
+            "nearestStationCode": 1,
+            "westbound": 3
+        },
+        "projectType": "native",
+        "resources": {
+            "media": [
+                {
+                    "file": "images/MetroTransitLogoBW.png",
+                    "menuIcon": true,
+                    "name": "MENU_LOGO_BW",
+                    "type": "bitmap"
+                },
+                {
+                    "file": "images/MetroTransitLogo.png",
+                    "name": "MENU_IMAGE",
+                    "targetPlatforms": [
+                        "basalt"
+                    ],
+                    "type": "bitmap"
+                }
+            ]
+        },
+        "sdkVersion": "3",
+        "targetPlatforms": [
+            "aplite",
+            "basalt",
+            "chalk"
+        ],
+        "uuid": "2af550b3-b70d-4196-bffa-d1d82d38325e",
+        "watchapp": {
+            "watchface": false
+        }
+    },
+    "version": "1.0.0"
+}
